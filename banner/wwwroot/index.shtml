@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>无缝滚动</title>
+	<style type="text/css">
+	*{margin: 0; padding: 0;}
+	ul,li{ list-style: none;}
+	.banner{width:600px; height: 200px; overflow: hidden; position:relative; margin:0 auto;}
+	.banner ul{width:100%;}
+	.banner li{width:100%;}
+	.banner li img{width:100%;}
+	#point{width:80px; height: 10px; margin-left: -40px; position: absolute; left: 50%; bottom: 10px; z-index: 99;}
+	#point li{width:10px; height:10px; float:left; margin:0 5px; background: #ff0; cursor: pointer}
+	#point .on{ background: #000}
+	</style>
+</head>
+<body>
+	<div class="banner">
+		<ul  id="banner">
+			<li><img src="images/banner1.jpg"></li>
+			<li><img src="images/banner2.jpg"></li>
+			<li><img src="images/banner3.jpg"></li>
+			<li><img src="images/banner4.jpg"></li>
+		</ul>
+		<ul id="point">
+			<li class="on"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<span id="slide-pre">上一个</span>
+	<span id="slide-nxt">下一个</span>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/banner.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){	
+		// $('#box').animate({ textIndent: 0 }, { 
+		// step: function(now,fx) { 
+		// $(this).css('-webkit-transform','rotate('+now+'deg)'); 
+		// }, 
+		// duration:'slow' 
+		// },'linear'); 
+		// var index = 0;
+		// var width = 600;
+		// var n = 4;
+		// var $banner = $("#banner").find("li");
+		// $("#banner").find("li").css({"position":"absolute","left":width+"px"});
+		// $("#banner").find("li").eq(0).css({"left":"0px"})
+		// $('#slide-nxt').click(function(){
+		// 	index+=1;
+		// 	console.log(index);
+		// 	$banner.eq(index-1).siblings("li").css("left",width+"px")
+		// 	if(index > n-1){
+		// 		$banner.eq(0).animate({"left":"0px"},function(){index=0;})
+		// 		$banner.eq(index-1).animate({"left":-width+"px"})
+		// 	}else{
+		// 		$banner.eq(index).animate({"left":"0px"})
+		// 		$banner.eq(index-1).animate({"left":-width+"px"})
+		// 	}
+		// })
+
+		// $('#slide-pre').click(function(){
+		// 	index-=1;
+		// 	$banner.eq(index+1).siblings("li").css("left",-width+"px")
+		// 	console.log(index);
+		// 	if(index < 0){
+		// 		$banner.eq(n-1).animate({"left":"0px"},function(){index=n-1;})
+		// 		$banner.eq(0).animate({"left":width+"px"})	
+		// 	}else{
+		// 		$banner.eq(index).animate({"left":"0px"})
+		// 		$banner.eq(index+1).animate({"left":width+"px"})	
+		// 	}	
+		// })
+		
+	    //mySlide.init();
+	    $("#banner").mySlide({
+	    	el: "li", //轮播执行标签 默认 li
+			width: 600, //宽度，如自适应可用auto 默认auto
+			nextbtn: "#slide-nxt", //下一页按钮
+			prebtn: "#slide-pre", //上一页按钮
+			time: 200, //轮播动画时间 默认 500
+			point: "#point>li", //使用 > 符号定义子元素
+			curClass: "on", //选中样式
+			Event: "mouseover",//事件
+			autoPlay: false,//是否自动播放
+			delay: 3000 //自动播放间隔
+	    })
+
+	})
+
+
+	</script>
+</body>
+</html>
