@@ -10,8 +10,7 @@
 			point: "#point>li",
 			curClass: "on",
 			Event: "click",
-			autoPlay: true,
-			delay: 3000
+			autoPlay: true
 		}
 		$options = $.extend(slide,options)
 
@@ -21,13 +20,22 @@
 			index = 0,
 			time = slide.time,
 			flag = 1
-		$banner.css({"position":"absolute","left":width+"px"});
-		$banner.eq(0).css({"left":"0px"})
+		if(sup("transform")){
+			$banner.css({"position":"absolute","x":width,"-webkit-transform":"translateX("+width+"px)"});
+			$banner.eq(0).css({"x":0,"-webkit-transform":"translateX("+0+"px)"})
+		}else{
+			$banner.css({"position":"absolute","left":width+"px"});
+			$banner.eq(0).css({"left":"0px"})
+		}
 		$(slide.nextbtn).on("click",function(){ //点击下一页执行函数
 			if(flag){
 				index+=1;
 				flag = 0;
-				$banner.eq(index-1).siblings("li").css("left",width+"px")
+				if(sup("transform")){
+					$banner.eq(index-1).siblings(slide.el).css({"x":width,"-webkit-transform":"translateX("+width+"px)"})
+				}else{
+					$banner.eq(index-1).siblings(slide.el).css("left",width+"px")
+				}
 				if(index > n-1){
 					action(0,0,time,0)
 					action(index-1,-width,time)
@@ -42,7 +50,12 @@
 			if(flag){
 				index-=1;
 				flag = 0;
-				$banner.eq(index+1).siblings("li").css("left",-width+"px")
+				if(sup("transform")){
+					$banner.eq(index+1).siblings(slide.el).css({"x":-width,"-webkit-transform":"translateX("+(-width)+"px)"})
+				}else{
+					$banner.eq(index+1).siblings(slide.el).css("left",-width+"px")
+				}
+				
 				if(index < 0){
 					action(n-1,0,time,n-1)	
 					action(0,width,time)
@@ -67,7 +80,11 @@
 			if(po >= len){
 				if(flag){
 					flag = 0;
-					$banner.eq(index).siblings("li").css("left",width+"px")
+					if(sup("transform")){
+						$banner.eq(index).siblings(slide.el).css({"x":width,"-webkit-transform":"translateX("+width+"px)"})
+					}else{
+						$banner.eq(index).siblings(slide.el).css("left",width+"px")
+					}
 					action(po,0,time)
 					if(po !== index){	
 						action(index,-width,time)
@@ -78,7 +95,11 @@
 			}else{
 				if(flag){
 					flag = 0;
-					$banner.eq(index).siblings("li").css("left",-width+"px")
+					if(sup("transform")){
+						$banner.eq(index).siblings(slide.el).css({"x":-width,"-webkit-transform":"translateX("+(-width)+"px)"})
+					}else{
+						$banner.eq(index).siblings(slide.el).css("left",-width+"px")
+					}
 					action(po,0,time)
 					action(index,width,time)	
 					index = po;
@@ -89,9 +110,8 @@
 		if(slide.autoPlay){ //自动播放
 			setInterval(function(){
 				$(slide.nextbtn).trigger("click")
-			},slide.delay)
+			},slide.autoPlay)
 		}
-
 		function point(){ //选中下标
 			var dom = slide.point.split(">"),
 				len = index;
@@ -108,9 +128,25 @@
 		function action(a,b,time,c){
 			if(sup("transform")){ //如果浏览器支持css3则使用transform方法(还没写)
 				if(c+10){ //如果传入了index参数
-					$banner.eq(a).animate({"left": b + "px"},time,function(){index=c;flag=1})
+					$banner.eq(a).animate({"x": b}, {
+					    duration:time,
+					    step: function(now,fx) {
+					        $(this).css('-webkit-transform','translateX('+now+'px)');
+						},
+						complete: function(){
+							index=c;flag=1
+						}
+					})
 				}else{
-					$banner.eq(a).animate({"left": b + "px"},time,function(){flag=1})
+					$banner.eq(a).animate({"x": b}, {
+					    duration:time,
+					    step: function(now,fx) {
+					        $(this).css('-webkit-transform','translateX('+now+'px)');
+						},
+						complete: function(){
+							flag=1
+						}
+					})
 				}
 			}else{
 				if(c+10){ //如果传入了index参数
