@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>imgpreload</title>
+</head>
+<body>
+	<h1>imgpreload end</h1>
+	<div id="msg">
+		
+	</div>
+	<script type="text/javascript" src="js/imgPreLoad.js" ></script>
+	<script type="text/javascript">
+		var imgArr = ['images/cn_01.jpg','images/cn_02.jpg','images/cn_03.jpg','images/cn_04.jpg','images/cn_05.jpg']
+		var load = new imgPreLoad(),
+			b,e,
+			msg = document.getElementById('msg')
+		
+		function inner(t){
+			var p = document.createElement('p')
+			p.innerHTML = t
+			msg.appendChild(p)
+		}
+		
+		load.on('end',function(){
+			p = document.createElement('p')
+			inner("图片加载完毕！")
+			e = new Date().getTime()
+			inner("消耗时间：" + (e-b) + 'ms') 
+		})
+		load.on('ready',function(){
+			inner("图片开始加载！")
+			b = new Date().getTime()
+		})
+		load.on('error',function(err){
+			inner(err)
+		})
+
+		load.init(imgArr)
+	</script>
+</body>
+</html>
