@@ -1,5 +1,3 @@
-# plugin
-some plugin by myself
 # banner
 
 + 轮播无缝滚动
