@@ -24,7 +24,7 @@
 			age: '18',
 			client:'client'
 		}
-	}).then(function(resp){
+	}).then(function(resp){ 
 		console.log(resp)
 	})
 
@@ -48,13 +48,13 @@
 		console.log(resp) 
 	})
 
-	client({
+	client({ 
 		url: '/api/put/test',
 		method: 'GET',
 		params: {
 			haha : "hahah"
 		}
-	}).delay(2000).then(function(data){
+	}).delay(2000).then(function(data){ // delay(2000) 将在2000ms后执行请求，并在请求结束后执行 console.log
 		console.log(data)
 	})
 ```
