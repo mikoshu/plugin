@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Promise Client</title>
+</head>
+<body>
+	<script type="text/javascript" src="js/bluebird.min.js" ></script>
+	<script type="text/javascript" src="js/client.js" ></script>
+	<script type="text/javascript">
+		
+		
+
+
+client({
+	url: '/api/put/test',
+	method: 'GET',
+	params: {
+		haha : "hahah"
+	}
+}).delay(2000).then(function(data){
+	console.log(data)
+})
+
+client({
+	url: '/api/put/test',
+	method: 'PUT',
+	setHeader: {'Cache-Control':'no-cache'},
+	type: 'json',
+	params:{
+		name: 'miko',
+		age: '18',
+		client:'client'
+	}
+}).then(function(resp){
+	console.log(resp)
+})
+
+
+
+
+
+	</script>
+</body>
+</html>
