@@ -31,6 +31,26 @@
 	client({
 		url: '/api/put/test',
 		method: 'GET',
+		type: 'text',
+		params: {
+			haha : "hahah"
+		}
+	}).then(function(data){ // 请求 /api/test 结束后执行
+		console.log(data)  
+		return client({    
+			url: '/api/test2/',
+			method: 'POST',
+			params{
+				...
+			}
+		})
+	}).then(function(resp){ //请求 /api/test2 结束后执行
+		console.log(resp) 
+	})
+
+	client({
+		url: '/api/put/test',
+		method: 'GET',
 		params: {
 			haha : "hahah"
 		}
@@ -46,6 +66,6 @@ _注意：只有使用了 bluebird.js 才能使用 delay(ms)方法！_
 | url       | string | 请求url                                    |
 | method    | string | 请求方式 大写字母如 'GET','POST','PUT'...  |
 | params    | object | 传递参数，对象形式                         |
-| type      | string | 请求得到的数据类型，特殊类型需要服务端配置 |
+| type      | string | 请求得到的数据类型，特殊类型需要服务端配置(具体参数参考jquery ajax dataType 参数) |
 | setHeader | object | 设置request Header的一些属性               |
 
