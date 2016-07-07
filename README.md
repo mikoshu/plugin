@@ -13,6 +13,7 @@
 + Promise模式的 ajax 请求插件（不支持promise的浏览器可以引用 bluebird.js ）
 + 用法：
 
+```javascript
 	client({
 		url: '/api/put/test',
 		method: 'PUT',
@@ -36,11 +37,12 @@
 	}).delay(2000).then(function(data){
 		console.log(data)
 	})
+```
 
 _注意：只有使用了 bluebird.js 才能使用 delay(ms)方法！_
 
-| 参数      | 类型   | 说明                                       |
-| --------- |:------:| ------------------------------------------:|
+| 参数      | 类型   |                  说明                      |
+| --------- |:------:| ------------------------------------------ |
 | url       | string | 请求url                                    |
 | method    | string | 请求方式 大写字母如 'GET','POST','PUT'...  |
 | params    | object | 传递参数，对象形式                         |
