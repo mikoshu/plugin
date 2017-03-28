@@ -69,3 +69,8 @@ _注意：只有使用了 bluebird.js 才能使用 `delay(ms)` 方法！_
 | type      | false  | string | 请求得到的数据类型，特殊类型需要服务端配置(具体参数参考jquery ajax dataType 参数) |
 | setHeader | false  | object | 设置request Header的一些属性               |
 
+# imgPreLoad
+
++ canvas 环形进度条demo  <a href="http://mikoshu.me/plugin/canvas-progress/index.html" target='_blank' >点此预览</a>
+
+_并未封装插件（自行修改demo配置）
