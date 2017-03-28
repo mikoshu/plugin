@@ -73,4 +73,4 @@ _注意：只有使用了 bluebird.js 才能使用 `delay(ms)` 方法！_
 
 + canvas 环形进度条demo  <a href="http://mikoshu.me/plugin/canvas-progress/index.html" target='_blank' >点此预览</a>
 
-_并未封装插件（自行修改demo配置）
+_ 并未封装插件（自行修改demo配置）_
