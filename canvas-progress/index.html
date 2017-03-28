@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1080,user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>demo</title>
+    <style type="text/css">
+    body{
+      font-family: Microsoft YaHei;
+    }
+      .progress{
+        width:1080px;
+        height:860px;
+        position:relative;
+      }
+      .percent{
+        position:absolute;
+        left:0;
+        top:250px;
+        width:100%;
+        line-height:280px;
+        font-size:260px;
+        text-align:center;
+        text-indent:80px; 
+      }
+      .percent .d{
+          font-size:60px;
+      }
+      .mile{
+        position:absolute;
+        left:50%;
+        top:650px;
+        width:330px;
+        line-height:100px;
+        font-size:100px;
+        text-align:center;
+        transform:translate(-50%,0);
+        -webkit-transform:translate(-50%,0); 
+      }
+      .mile .d{
+          position:absolute;
+          right:10px;
+          top:0px;
+          font-size:40px;
+          line-height:60px;
+        }
+    </style>
+</head>
+<body class="">
+    <div class="progress">
+      <canvas id="canvas"></canvas>
+      <div class="percent"><span id="percent">0</span><span class="d">%</span></div>
+      <div class="mile">
+        <span id="mile">0</span><span class="d">km</span>
+      </div>
+    </div>
+     
+    <script>
+      function animation(){
+              var canvas = document.getElementById('canvas'),
+                  ctx = canvas.getContext('2d'),
+                  percent = document.getElementById('percent'),
+                  mile = document.getElementById('mile'),
+                  obj = {
+                    width: 1080,
+                    height: 860,
+                    dx: 70, // 刻度宽度
+                    dy: 8,  // 刻度高度
+                    num: 100, // 刻度条数
+                    r: 400,  // 半径
+                    start:-45, // 开始角度，与结束角度相对称
+                    progress: 80, // 显示进度 （单位百分比）
+                    index: 0, // 开始刻度
+                    defaultColor: '#dee1e4', // 开始颜色
+                    activeColor: '#2fd498' // 进度条颜色
+                  };
+                  obj.deg = (180 - 2*obj.start)/obj.num;
+ 
+              canvas.width = obj.width;
+              canvas.height = obj.height;
+               
+              ctx.save();
+              ctx.font = "500 42px Microsoft YaHei ";
+              ctx.fillStyle = "#9b9b9c";
+              ctx.fillText('剩余电量',460,230);
+              ctx.fillText('预估里程',460,630);
+              ctx.restore();
+ 
+              for(var x=0; x < obj.num+1;x++){ //灰色刻度线
+                draw(x,obj.defaultColor); 
+              }
+ 
+              function draw(x,color){ // 画出环形刻度线
+                ctx.save();
+                var deg = Math.PI/180*(obj.start + obj.deg*x); // 角度换算弧度
+                var offsetY = -(Math.sin(deg)*obj.r); // 计算刻度Y轴位置
+                var offsetX = -(Math.cos(deg)*obj.r); // 计算刻度X轴位置
+                ctx.fillStyle = color;
+                ctx.translate(obj.width/2+offsetX,obj.height/2+offsetY); // 修改画布坐标原点
+                ctx.rotate(deg); // 旋转刻度
+                ctx.fillRect(0,0,obj.dx,obj.dy); // 画出刻度
+                ctx.restore();
+              }
+ 
+              function animate(s,time){
+                if(obj.progress == 0){ // 进度为0直接退出函数
+                  return false;
+                }
+                draw(s,obj.activeColor);
+                var num = obj.progress*(obj.num/100); //格数计算
+                percent.innerHTML = parseInt((s/obj.num)*100); // 剩余电量计算
+                mile.innerHTML = parseInt(s*2.5); // 预估里程数计算
+ 
+                var timmer = setTimeout(function(){
+                  obj.index = s+1;
+                   
+                  if(s >= num ){
+                    clearTimeout(timmer);
+                  }else{
+                    if(s > num - 10){ // 剩余10格动画减速
+                      animate(obj.index,time+20);
+                    }else{
+                      animate(obj.index,time);
+                    }
+                     
+                  }
+                },time)
+              }
+ 
+              animate(obj.index,10)
+          }
+             
+          animation()
+    </script>
+</body>
+</html>
