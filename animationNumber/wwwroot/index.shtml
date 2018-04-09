@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .num{
+      text-align: center;
+      margin-top: 20px;
+      font-size: 24px;
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <div class="num" id="num" >0</div>
+  <div class="num" id="num2">0</div>
+  <div class="num" id="num3">0</div>
+  <div class="num" id="num4">0</div>
+
+  <script src="js/animationNumber.js" ></script>
+  <script>
+    window.onload = function(){
+      var me = new animateNumber({
+        start: 0,
+        num: 1000,
+        time: 2000
+      })
+      var me2 = new animateNumber({
+        el: 'num2',
+        start: 0,
+        num: "2'30",
+        time: 2000,
+        type: 'time'
+      })
+      var me3 = new animateNumber({
+        el: 'num3',
+        start: 0,
+        num: "3000",
+        time: 2000,
+        type: 'number'
+      })
+      var me4 = new animateNumber({
+        el: 'num4',
+        start: 0,
+        num: "5'30",
+        time: 2000,
+        type: 'time'
+      })
+    }
+      
+
+  </script>
+</body>
+</html>
